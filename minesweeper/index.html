@@ -3,172 +3,33 @@
 <head>
     <meta charset="utf-8" />
     <link href="http://elixia.spelar.se/main.css" rel="stylesheet" type="text/css" />
-    <title>Elixia's Minesweeper</title>
+    <title>Elixia's Minesweeper v2</title>
 </head>
 
 <body>
-    <table align="center" cellspacing="10">
+    <br>
+    <br>
+    <br>
+
+    <table cellspacing="0" align="center">
         <tr>
-            <td class="standard" id="settingsWindow" style="display: none;">
-                <table>
-                    <tr>
-                        <td style="padding: 20;" align="center" border="0">
-                            <table border="0" align="center">
-                                <tr>
-                                    <td>
-                                        <table>
-                                            <form id="fieldSettings">
-                                                <tr>
-                                                    <td>Field settings</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div style="font-size: 10px">Columns</div><input type="number"
-                                                            name="fieldWidth" placeholder="Columns" value="16">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div style="font-size: 10px">Rows</div><input type="number"
-                                                            name="fieldHeight" placeholder="Rows" value="16">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div style="font-size: 10px">Mines</div><input type="number"
-                                                            name="fieldMines" placeholder="Mines" value="40">
-                                                    </td>
-                                                </tr>
-                                            </form>
-                                            <tr>
-                                                <td><button onclick="game.newGame()">New game</button></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><br></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table>
-                                            <form id="tileSettings">
-                                                <tr>
-                                                    <td>Tile size</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="radio" name="tileSize" value="25" checked> Small</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="radio" name="tileSize" value="37.5"> Medium</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="radio" name="tileSize" value="50"> Large</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="radio" name="tileSize" value="75"> Huge</td>
-                                                </tr>
-                                                <!--<tr><td style="color: white">symmetry</td></tr>-->
-                                            </form>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><br></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table>
-                                            <form id="extraSettings">
-                                                <tr>
-                                                    <td>Options</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" name="questionmarks" value="questionmark"> Use marks (?)</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="checkbox" name="showErrors" value="showErrors"> Show flag errors</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="color: white">symmetry</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="color: white">symmetry</td>
-                                                </tr>
-                                            </form>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
+            <td style="padding: 0;">
+
+                <div onclick="newPicTest(1,1)" oncontextmenu="newPicTest2(1,1);return false;"> <img src="sprites/tile.png" id="tile_1_1" ondragstart="return false;" ondrop="return false;"></div>
             </td>
-            <td class="standard">
-                <table align="center">
-                    <tr>
-                        <td>
-                            <table style="padding: 20" align="center" border="0">
-                                <tr>
-                                    <td colspan="2">
-                                        <canvas width="400" height="400" id="sweeper" style="border: 0px solid lightgray"
-                                            oncontextmenu="return false"></canvas><br />
-                                    </td>                                    
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button onclick="game.restart()">Restart</button>
-                                        <button id="toggleSettings" onclick="game.settings()">Show settings</button>
-                                    </td>
-                                    <td>
-                                        <p style="text-align: right;" id="score">40 Mines</p>
-                                    </td>
-                                </tr>
-                                <!--preload images-->
-                        <td style="display: block;" colspan="2">
-
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/tile.png" alt="tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/open-tile.png" alt="open-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/flag.png" alt="flag" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/maybe.png" alt="maybe" width="25" height="25">                            
-
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/bomb.png" alt="bomb" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/not-bomb.png" alt="not-bomb" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/exploded-bomb.png" alt="exploded-bomb" width="25" height="25">
-
-                            <br>
-
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/1-tile.png" alt="1-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/2-tile.png" alt="2-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/3-tile.png" alt="3-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/4-tile.png" alt="4-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/5-tile.png" alt="5-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/6-tile.png" alt="6-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/7-tile.png" alt="7-tile" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/8-tile.png" alt="8-tile" width="25" height="25">
-
-                            <br>
-
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-1.png" alt="error-1" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-2.png" alt="error-2" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-3.png" alt="error-3" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-4.png" alt="error-4" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-5.png" alt="error-5" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-6.png" alt="error-6" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-7.png" alt="error-7" width="25" height="25">
-                            <img src="http://elixia.spelar.se/games/minesweeper/sprites/error-8.png" alt="error-8" width="25" height="25">
-                        </td>
-                    <tr>
-                    </tr>
-                </table>
+            <td style="padding: 0;">
+                <div onclick="newPicTest(2,1)"> <img src="sprites/tile.png" id="tile_2_1"></div>
+            </td>
+            <td style="padding: 0;">
+                <div onclick="newPicTest(3,1)"> <img src="sprites/tile.png" id="tile_3_1"></div>
+            </td>
+            <td style="padding: 0;">
+                <div onclick="newPicTest(4,1)"> <img src="sprites/tile.png" id="tile_4_1"></div>
             </td>
         </tr>
-    </table>
-    </td>
-    </tr>
     </table>
 </body>
 
 </html>
 <script type="text/javascript" src="http://spelprogrammering.nu/advanced.js"></script>
-<script type="text/javascript" src="http://elixia.spelar.se/games/minesweeper/minesweeper.js"></script>
+<script type="text/javascript" src="minesweeper.js"></script>
